@@ -1,5 +1,5 @@
 import numpy as np
-import pandas as pd
+
 
 def simulate_gbm(S0, mu, sigma, T, M, N, seed=None):
     rng = np.random.default_rng(seed)
