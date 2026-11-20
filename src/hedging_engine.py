@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 
 from black_scholes import bsm_price, bsm_delta
 from processes import simulate_gbm
@@ -16,12 +17,16 @@ def run_delta_hedging(prices_matrix, N, S, K, T, sigma, r):
 
     account = current_price - current_delta * S[:, 0]
 
-    for i in range(2, N):
+    for i in range(1, N):
+        # interest:
+        account *= account ** (r*dt)
+
         current_tau = tau_vector[i]
 
-        new_price = bsm_price(S[:,i], K, current_tau, sigma, r)
         new_delta = bsm_delta(S[:,i], K, current_tau, sigma, r)
+        delta_change = new_delta - current_delta
 
-        account += current_price - current_delta * S[:,i]
+        account -= (delta_change) * S[:,i]
+        current_delta = new_delta
 
     pass
