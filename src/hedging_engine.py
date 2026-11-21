@@ -19,7 +19,7 @@ def run_delta_hedging(prices_matrix, N, S, K, T, sigma, r):
 
     for i in range(1, N):
         # interest:
-        account *= account ** (r*dt)
+        account *= np.exp(r*dt)
 
         current_tau = tau_vector[i]
 
