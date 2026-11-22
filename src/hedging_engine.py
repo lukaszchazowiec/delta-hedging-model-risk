@@ -6,7 +6,7 @@ from black_scholes import bsm_price, bsm_delta
 from processes import simulate_gbm
 
 
-def run_delta_hedging(prices_matrix, N, S, K, T, sigma, r):
+def run_delta_hedging(N, S, K, T, sigma, r):
 
     account = 0
     dt = T / N
@@ -26,7 +26,11 @@ def run_delta_hedging(prices_matrix, N, S, K, T, sigma, r):
         new_delta = bsm_delta(S[:,i], K, current_tau, sigma, r)
         delta_change = new_delta - current_delta
 
-        account -= (delta_change) * S[:,i]
+        account -= delta_change * S[:,i]
         current_delta = new_delta
 
-    pass
+    account *= np.exp(r*dt)
+    account += current_delta * S[:, -1]
+    account -= np.maximum(S[:, -1] - K, 0.0)
+
+    return account

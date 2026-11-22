@@ -3,7 +3,7 @@ import numpy as np
 
 def simulate_gbm(S0, mu, sigma, T, M, N, seed=None):
     rng = np.random.default_rng(seed)
-    Z = rng.normal(loc=0, scale=1, size=(M, N+1))
+    Z = rng.normal(loc=0, scale=1, size=(M, N))
 
     dt = T / N
 
