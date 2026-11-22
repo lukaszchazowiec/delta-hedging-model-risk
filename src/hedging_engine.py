@@ -52,7 +52,7 @@ def run_delta_hedging(S, K, T, sigma, r, rebalance=21, cost=0.001, option_type="
     elif option_type == "put":
         payoff = np.maximum(K - S[:, -1], 0.0)
     else:
-        raise ValueError("option_type musi być równe 'call' lub 'put'")
+        raise ValueError("option_type must be 'call' or 'put'")
 
     account -= payoff
 
