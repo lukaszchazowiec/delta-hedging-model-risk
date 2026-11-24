@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats
 
 
 def simulate_gbm(S0, mu, sigma, T, M, N, seed=None):
@@ -18,3 +19,39 @@ def simulate_gbm(S0, mu, sigma, T, M, N, seed=None):
     S = S0 * np.exp(cum_log_returns)
 
     return S
+
+
+def simulate_merton_jump_diffusion(S0,
+                                   mu,
+                                   sigma,
+                                   lam,
+                                   mu_j,
+                                   T,
+                                   delta,
+                                   M,
+                                   N,
+                                   seed=None
+):
+
+
+    rng = np.random.default_rng(seed)
+    dt = T / N
+
+    Z_diff = rng.normal(loc=0.0, scale=1.0, size=(M, N))
+    Z_jump = rng.normal(loc=0.0, scale=1.0, size=(M, N))
+    n_jumps = rng.poisson(lam * dt, size=(M, N))
+
+    kappa = np.exp(mu_j + 0.5 * delta**2) - 1.0
+
+    drift = (mu - lam * kappa - 0.5 * sigma**2) * dt
+    diffusion = sigma * np.sqrt(dt) * Z_diff
+
+
+
+
+    jump_log_returns = rng.normal(loc=n_jumps*mu_j, scale=np.sqrt(n_jumps) * delta)
+
+    pass
+
+
+
