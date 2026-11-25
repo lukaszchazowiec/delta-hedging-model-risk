@@ -40,6 +40,7 @@ def simulate_merton_jump_diffusion(
     N,
     seed=None,
 ):
+    
     rng = np.random.default_rng(seed)
     dt = T / N
 
