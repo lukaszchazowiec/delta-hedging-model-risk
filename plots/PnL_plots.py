@@ -30,13 +30,11 @@ def plot_pnl(
         label="P&L histogram",
     )
 
-    # Podświetlenie słupków w lewym ogonie (poniżej VaR 95%)
     for left_edge, patch in zip(edges[:-1], patches):
         if left_edge < var95:
             patch.set_facecolor("#DD8452")
             patch.set_alpha(0.75)
 
-    # Gładka krzywa gęstości (KDE) dla lepszej czytelności kształtu rozkładu
     if np.std(data) > 0:
         x_grid = np.linspace(data.min(), data.max(), 300)
         kde = gaussian_kde(data)
