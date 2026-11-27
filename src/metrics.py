@@ -1,9 +1,7 @@
 import numpy as np
-import pandas as pd
 
 from scipy import stats
 
-from hedging_engine import run_delta_hedging
 
 def summarize_pnl(pnl):
     pnl = np.asarray(pnl)
